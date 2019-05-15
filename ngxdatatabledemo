@@ -1,0 +1,19 @@
+<div>
+  <ngx-datatable [rows]="rows" [columns]="columns" [limit]="10">
+    <!-- <ngx-datatable-column name="Name"></ngx-datatable-column> -->
+
+    <ngx-datatable-column
+      *ngFor="let column of columns"
+      name="{{ column.name }}"
+      prop="{{ column.prop }}"
+      [ngSwitch]="column.type"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template *ngSwitchCase="'boolean'">
+        {{ value ? 'Y' : 'N' }}
+      </ng-template>
+      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template *ngSwitchCase="'link'">
+        <button (click)="clickedOn(column.prop, row)">{{ value }}</button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
